@@ -296,7 +296,6 @@ fi
 sudo -u git -H git config --global user.name "GitLab"
 sudo -u git -H git config --global user.email "gitlab@$domain_var"
 
-
 #  =================================
 #  = GitLab Database Configuration =
 #  =================================
@@ -305,7 +304,8 @@ sudo -u git -H git config --global user.email "gitlab@$domain_var"
 sudo -u git cp config/database.yml.mysql config/database.yml
 
 # Insert database password into config
-sed -i 's/"secure password"/${gitlabpass}/g' config/database.yml
+passwdph="secure password"
+sed -i "s/${passwdph}/${gitlabpass}/g" config/database.yml
 
 # Replace MySQL user root with gitlab
 sed -i 's/root/gitlab/g' config/database.yml
