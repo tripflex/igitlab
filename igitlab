@@ -229,7 +229,7 @@ sudo -u git -H git checkout v1.4.0
 sudo -u git -H cp config.yml.example config.yml
 
 # Edit config and replace gitlab_url
-sudo -u git -H sed -i 's/localhost/$domain_var/g' config.yml
+sudo -u git -H sed -i "s/localhost/${domain_var}/g" config.yml
 
 # Do setup
 sudo -u git -H ./bin/install
@@ -258,7 +258,7 @@ cd /home/git/gitlab
 sudo -u git -H cp config/gitlab.yml.example config/gitlab.yml
 
 # Replace localhost with domain
-sudo -u git -H sed -i 's/localhost/$domain_var/g' config/gitlab.yml
+sudo -u git -H sed -i "s/localhost/${domain_var}/g" config/gitlab.yml
 
 # Make sure GitLab can write to the log/ and tmp/ directories
 sudo chown -R git log/
@@ -363,7 +363,7 @@ sudo ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
 sudo sed -i 's/YOUR_SERVER_IP:80/*:80/g' /etc/nginx/sites-available/gitlab
 
 # Replace YOUR_SERVER_FQDN with domain
-sudo sed -i 's/"YOUR_SERVER_FQDN"/"$domain_var"/g' /etc/nginx/sites-available/gitlab
+sudo sed -i "s/YOUR_SERVER_FQDN/${domain_var}/g" /etc/nginx/sites-available/gitlab
 
 #  ===========================
 #  = Where the magic happens =
