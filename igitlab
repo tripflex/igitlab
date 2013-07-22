@@ -14,7 +14,7 @@
 # @author Myles McNamara
 # @date 7.17.2013
 # @version 1.0
-# @source https://github.com/tripflex/gitlab-recipes/
+# @source https://github.com/tripflex/igitlab
 # ------------------------------------------------------------------------------------------
 # @usage ./igetlab domain.com
 # ------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@
 #  --------------------------------------------------------
 #  - GitHub branch to use.  Use master for latest release -
 #  ------------------------------------------------------==
-	gitlab_release=master
+	gitlab_release=5-4-stable
 #  -------------------------------------
 #  - Download URL for Ruby tar.gz file -
 #  -------------------------------------
