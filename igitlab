@@ -92,8 +92,6 @@ fi
 
 clear
 
-echo -e "\n[iGitLab] Feeding the rabbit, here we go..."
-
 # Check for domain
 if [ "$#" -lt 1 ]; then
 	echo -e "\n[iGitLab] Domain was not specified, using localhost as default!"
@@ -104,13 +102,12 @@ fi
 
 # Check for MySQL root password
 if [ -z "$mysqlpasswd" ]; then
-	echo -e "\n[iGitLab] MySQL root password not set in configuration, please enter it now."
-	read mysqlpasswd
+	echo -e "\n[iGitLab] MySQL root password not set in configuration, this will be required.  If MySQL is not installed you will be prompted to set a password after this script installs MySQL.  If MySQL is already installed you will need to set the root password and restart this script."
 fi
 
 echo -e "\n[iGitLab] Installing GitLab v5 (Release: $gitlab_release) for $domain_var"
 
-givemeayes "Would you like to continue with the install?"
+givemeayes "Would you like to continue with the install? (y/n)"
 
 #  ====================
 #  = Install Packages =
@@ -124,9 +121,7 @@ sudo apt-get install $aptget_arguments build-essential zlib1g-dev libyaml-dev li
 #  ======================
 #  = MySQL Installation =
 #  ======================
-#  
-# Generate a random gitlab MySQL password
-gitlabpass=$(makepasswd --char=14)
+#
 
 # Install the database packages
 sudo apt-get install $aptget_arguments mysql-server mysql-client libmysqlclient-dev
@@ -136,9 +131,17 @@ if [ -z "$mysqlpasswd" ]; then
 	echo -e "\n[iGitLab] MySQL root password not provided, please enter the password you used now."
 	read mysqlpasswd
 	if [ -z "$mysqlpasswd" ]; then
-		echo -e "\n[iGitLab] MySQL root password not provided, existing installer, please run again with root password."
+		echo -e "\n[iGitLab] MySQL root password not provided, exiting installer, please run again after you set the root password."
 		exit 0
 	fi
+fi
+
+# Generate a random gitlab MySQL password
+gitlabpass=$(makepasswd --char=14)
+
+if [ -z "$gitlabpass" ]; then
+	echo -e "\n[iGitLab] Random password generation failed, please enter a password to use for GitLab MySQL user:"
+	read gitlabpass
 fi
 
 # Create a user for GitLab.
