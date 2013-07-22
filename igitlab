@@ -36,12 +36,18 @@
 #  =============================================================================
 #  --------------------------------------------------------
 #  - GitHub branch to use.  Use master for latest release -
-#  ------------------------------------------------------==
+#  --------------------------------------------------------
+#  For versions <=5.0 or >=6.0 the Unicorn Gem is used, 5.1-5.9 uses Puma, if you used master Unicorn is required.
 	gitlab_release=5-4-stable
+#  -------------------------------------------------------
+#  - Unicorn or Puma, Puma default, set to 1 for Unicorn -
+#  -------------------------------------------------------
+	useunicorn=0
 #  -------------------------------------
 #  - Download URL for Ruby tar.gz file -
 #  -------------------------------------
-	rubydlurl="ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz"
+#	rubydlurl="ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz"
+	rubydlurl="http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz"
 #  --------------------------------------------------
 #  - MySQL Root Password, will prompt if left blank -
 #  --------------------------------------------------
@@ -178,7 +184,10 @@ sudo DEBIAN_FRONTEND='noninteractive' apt-get install $aptget_arguments postfix-
 #  =====================
 #  = Ruby Installation =
 #  =====================
-#  
+#
+# Remove Ruby1.8 if installed
+echo -e "\n[iGitLab] Removing Ruby1.8 if installed..."
+sudo apt-get remove $aptget_arguments ruby1.8
 echo -e "\n[iGitLab] Downloading $rubydlurl..."
 curl --progress-bar $rubydlurl | tar xz
 cd ruby-*
@@ -267,8 +276,18 @@ sudo chmod -R u+rwX  tmp/sockets/
 sudo -u git -H mkdir public/uploads
 sudo chmod -R u+rwX  public/uploads
 
-# Copy the example Puma config
-sudo -u git -H cp config/unicorn.rb.example config/unicorn.rb
+# Copy the example Unicorn config (Version < 5.1 use Unicorn, versions > 5.1 use Puma)
+# sudo -u git -H cp config/unicorn.rb.example config/unicorn.rb
+
+# Copy the example of Puma config
+
+if [ "$useunicorn" -eq 1 ]; then
+	sudo -u git -H cp config/unicorn.rb.example config/unicorn.rb
+	pumaorunicorn="puma"
+else
+	sudo -u git -H cp config/puma.rb.example config/puma.rb
+	pumaorunicorn="unicorn"
+fi
 
 # Configure Git global settings for git user
 sudo -u git -H git config --global user.name "GitLab"
@@ -282,16 +301,10 @@ sudo -u git -H git config --global user.email "gitlab@$domain_var"
 sudo -u git cp config/database.yml.mysql config/database.yml
 
 # Insert database password into config
-sed -i 's/"secure password"/$mysqlpasswd/g' config/database.yml
+sed -i 's/"secure password"/$gitlabpass/g' config/database.yml
 
 # Replace MySQL user root with gitlab
-# /**
- 
-#    TODO:
-#    - Setup MySQL DB with gitlab user instead of root
- 
-#  **/
-#sed -i 's/root/gitlab/g' config/database.yml
+sed -i 's/root/gitlab/g' config/database.yml
 
 # Make config/database.yml readable to git only
 sudo -u git -H chmod o-rwx config/database.yml
@@ -305,7 +318,7 @@ cd /home/git/gitlab
 sudo gem install charlock_holmes --version '0.6.9.4'
 
 # For MySQL (note, the option says "without ... postgres")
-sudo -u git -H bundle install --deployment --without development test postgres unicorn aws
+sudo -u git -H bundle install --deployment --without development test postgres aws $pumaorunicorn
 
 
 #  ================================================
@@ -346,7 +359,7 @@ sudo ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
 sudo sed -i 's/YOUR_SERVER_IP:80/*:80/g' /etc/nginx/sites-available/gitlab
 
 # Replace YOUR_SERVER_FQDN with domain
-sudo sed -i "s/YOUR_SERVER_FQDN/$domain_var/g" /etc/nginx/sites-available/gitlab
+sudo sed -i 's/"YOUR_SERVER_FQDN"/"$domain_var"/g' /etc/nginx/sites-available/gitlab
 
 #  ===========================
 #  = Where the magic happens =
