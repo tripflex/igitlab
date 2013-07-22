@@ -1,23 +1,23 @@
 #!/bin/bash
 #
-#   ,ad8888ba,  88         88                     88
-#  d8"'    `"8b ""   ,d    88                     88
-# d8'                88    88                     88
-# 88            88 MM88MMM 88          ,adPPYYba, 88,dPPYba, 
-# 88      88888 88   88    88          ""     `Y8 88P'    "8a  
-# Y8,        88 88   88    88          ,adPPPPP88 88       d8  
-#  Y8a.    .a88 88   88,   88          88,    ,88 88b,   ,a8"  
-#   `"Y88888P"  88   "Y888 88888888888 `"8bbdP"Y8 8Y"Ybbd8"'
-#                                     
+#	 88   ,ad8888ba,  88         88                     88
+#	 ""  d8"'    `"8b ""   ,d    88                     88
+#	    d8'                88    88                     88
+#	 88 88            88 MM88MMM 88          ,adPPYYba, 88,dPPYba,
+#	 88 88      88888 88   88    88          ""     `Y8 88P'    "8a
+#	 88 Y8,        88 88   88    88          ,adPPPPP88 88       d8
+#	 88  Y8a.    .a88 88   88,   88          88,    ,88 88b,   ,a8"
+#	 88   `"Y88888P"  88   "Y888 88888888888 `"8bbdP"Y8 8Y"Ybbd8"'
+#
 #                     Ubuntu/Debian Installer
-# ------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # @author Myles McNamara
 # @date 7.17.2013
 # @version 1.0
 # @source https://github.com/tripflex/igitlab
-# ------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # @usage ./igetlab domain.com
-# ------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # @copyright Copyright (C) 2013 Myles McNamara
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
 # GNU General Public License for more details.
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
-# ------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 #  =============================================================================
 #  =                   Required Script Configuration Values                    =
