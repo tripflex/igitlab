@@ -96,8 +96,10 @@ echo -e "\n[iGitLab] Feeding the rabbit, here we go..."
 
 # Check for domain
 if [ "$#" -lt 1 ]; then
-  echo -e "\n[iGitLab] Domain was not specified, using localhost as default!"
-  domain_var=localhost
+	echo -e "\n[iGitLab] Domain was not specified, using localhost as default!"
+	domain_var=localhost
+else
+	domain_var=$1
 fi
 
 # Check for MySQL root password
@@ -133,12 +135,11 @@ sudo apt-get install $aptget_arguments mysql-server mysql-client libmysqlclient-
 # Check for MySQL root password
 if [ -z "$mysqlpasswd" ]; then
 	echo -e "\n[iGitLab] MySQL root password not provided, please enter the password you used now."
-	read rootmysqlpasswd
-	if [ -z "$rootmysqlpasswd" ]; then
+	read mysqlpasswd
+	if [ -z "$mysqlpasswd" ]; then
 		echo -e "\n[iGitLab] MySQL root password not provided, existing installer, please run again with root password."
 		exit 0
 	fi
-	mysqlpasswd=$rootmysqlpasswd
 fi
 
 # Create a user for GitLab.
@@ -147,14 +148,14 @@ mysql -uroot -p$mysqlpasswd -e "CREATE USER 'gitlab'@'localhost' IDENTIFIED BY '
 # Create the GitLab production database
 mysql -uroot -p$mysqlpasswd -e "CREATE DATABASE IF NOT EXISTS \`gitlabhq_production\` DEFAULT CHARACTER SET \`utf8\` COLLATE \`utf8_unicode_ci\`;"
 
-# Grant the GitLab user necessary permissopns on the table.
+# Grant the GitLab user necessary permissons on the table.
 mysql -uroot -p$mysqlpasswd -e "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON \`gitlabhq_production\`.* TO 'gitlab'@'localhost';"
 
 # Quit the database session
 mysql -uroot -p$mysqlpasswd -e "\\q;"
 
 # Try connecting to the new database with the new user
-sudo -u git -H mysql -ugitlab -p$gitlabpass -D gitlabhq_production
+# sudo -u git -H mysql -ugitlab -p$gitlabpass -D gitlabhq_production
 
 #  =======================
 #  = Python Installation =
