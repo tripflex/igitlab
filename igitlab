@@ -105,8 +105,7 @@ fi
 # Check for MySQL root password
 if [ -z "$mysqlpasswd" ]; then
 	echo -e "\n[iGitLab] MySQL root password not set in configuration, please enter it now."
-	read rootmysqlpasswd
-	mysqlpasswd=$rootmysqlpasswd
+	read mysqlpasswd
 fi
 
 echo -e "\n[iGitLab] Installing GitLab v5 (Release: $gitlab_release) for $domain_var"
