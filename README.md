@@ -5,6 +5,7 @@
 	iii  GGGGGG iii  tttt LLLLLLL  aaa aa bbbbbb  
 	                                              
 # iGitLab - GitLab Ubuntu/Debian Installer Bash/Shell Script
+http://smyl.es/igitlab-configurable-gitlab-multi-version-bashshell-installer-script-for-debian-ubuntu-linux-mint-etc/
 
 Name says it all, use this script to install GitLab on any debian flavored server, check the script for configuration options.
 
