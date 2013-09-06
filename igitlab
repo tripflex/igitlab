@@ -116,7 +116,7 @@ givemeayes "Would you like to continue with the install? (y/n)"
 echo -e "\n[iGitLab] Updating package information..."
 sudo apt-get update $aptget_arguments
 echo -e "\n[iGitLab] Installing required packages, please wait this could take a minute..."
-sudo apt-get install $aptget_arguments build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl wget git-core openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev makepasswd 1>>$APTLOG 2>>$APTERRLOG || (echo "apt-get install failed, check APTLOG and APTERRLOG" ; exit)
+sudo apt-get install $aptget_arguments build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl wget git-core openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev 1>>$APTLOG 2>>$APTERRLOG || (echo "apt-get install failed, check APTLOG and APTERRLOG" ; exit)
 
 #  ======================
 #  = MySQL Installation =
@@ -137,7 +137,7 @@ if [ -z "$mysqlpasswd" ]; then
 fi
 
 # Generate a random gitlab MySQL password
-gitlabpass=$(makepasswd --char=14)
+gitlabpass=$(openssl rand -base64 12)
 
 if [ -z "$gitlabpass" ]; then
 	echo -e "\n[iGitLab] Random password generation failed, please enter a password to use for GitLab MySQL user:"
