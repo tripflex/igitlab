@@ -116,9 +116,12 @@ fi
 
 clear
 
+# Output Logo
+igitlab
+
 # Check for domain
 if [ "$#" -lt 1 ]; then
-	echo -e "\n[iGitLab] Domain was not specified, using localhost as default!"
+	msg "Domain was not specified, using localhost as default!"
 	domain_var=localhost
 else
 	domain_var=$1
@@ -126,20 +129,24 @@ fi
 
 # Check for MySQL root password
 if [ -z "$mysqlpasswd" ]; then
-	echo -e "\n[iGitLab] MySQL root password not set in configuration, this will be required.  If MySQL is not installed you will be prompted to set a password after this script installs MySQL.  If MySQL is already installed you will need to set the root password and restart this script."
+	msg "MySQL root password not set in configuration."
 fi
 
-echo -e "\n[iGitLab] Installing GitLab v5 (Release: $gitlab_release) for $domain_var"
-
+mybanner "GitLab Installation Details"
+msg "Domain: $domain_var"
+msg "Version: $gitlab_release"
+msg "Ruby URL: $rubydlurl"
+msg "Unicorn: $useunicorn"
+msg "--------------------------------"
 givemeayes "Would you like to continue with the install? (y/n)"
 
 #  ====================
 #  = Install Packages =
 #  ====================
 #  
-echo -e "\n[iGitLab] Updating package information..."
+msgnl "[iGitLab] Updating package information..."
 sudo apt-get update $aptget_arguments
-echo -e "\n[iGitLab] Installing required packages, please wait this could take a minute..."
+msgnl "Installing required packages, please wait this could take a minute..."
 sudo apt-get install $aptget_arguments build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl wget git-core openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev 1>>$APTLOG 2>>$APTERRLOG || (echo "apt-get install failed, check APTLOG and APTERRLOG" ; exit)
 
 #  ======================
