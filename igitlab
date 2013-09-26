@@ -12,8 +12,8 @@
 #                     Ubuntu/Debian Installer
 # ------------------------------------------------------------------------------
 # @author Myles McNamara
-# @date 7.17.2013
-# @version 1.0
+# @date 9.26.2013
+# @version 1.1
 # @source https://github.com/tripflex/igitlab
 # ------------------------------------------------------------------------------
 # @usage ./igetlab domain.com
@@ -38,16 +38,21 @@
 #  - GitHub branch to use.  Use master for latest release -
 #  --------------------------------------------------------
 #  For versions <=5.0 or >=6.0 the Unicorn Gem is used, 5.1-5.9 uses Puma, if you used master Unicorn is required.
-	gitlab_release=5-4-stable
+	gitlab_release=6-1-stable
 #  -------------------------------------------------------
 #  - Unicorn or Puma, Puma default, set to 1 for Unicorn -
 #  -------------------------------------------------------
-	useunicorn=0
+	useunicorn=1
+#  --------------------------------------
+#  - Version of GitLab Shell to install -
+#  --------------------------------------
+	gitlab-shell_release=v1.7.1
 #  -------------------------------------
 #  - Download URL for Ruby tar.gz file -
 #  -------------------------------------
-#	rubydlurl="ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz"
-	rubydlurl="http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz"
+#  We will use Ruby 2 for >6
+	rubydlurl="ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz"
+#	rubydlurl="http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz"
 #  --------------------------------------------------
 #  - MySQL Root Password, will prompt if left blank -
 #  --------------------------------------------------
@@ -170,7 +175,7 @@ sudo apt-get install $aptget_arguments python
 python --version
 
 # If it's Python 3 you might need to install Python 2 separately
-sudo apt-get install $aptget_arguments python2.7
+sudo apt-get install $aptget_arguments python2.7 python-docutils
 
 # Make sure you can access Python via python2
 python2 --version
@@ -224,7 +229,7 @@ cd /home/git
 sudo -u git -H git clone https://github.com/gitlabhq/gitlab-shell.git
 cd gitlab-shell
 # switch to right version
-sudo -u git -H git checkout v1.4.0
+sudo -u git -H git checkout $gitlab-shell_release
 # copy example config to config.yml
 sudo -u git -H cp config.yml.example config.yml
 
@@ -295,6 +300,7 @@ fi
 # Configure Git global settings for git user
 sudo -u git -H git config --global user.name "GitLab"
 sudo -u git -H git config --global user.email "gitlab@$domain_var"
+sudo -u git -H git config --global core.autocrlf input
 
 #  =================================
 #  = GitLab Database Configuration =
@@ -322,7 +328,7 @@ cd /home/git/gitlab
 sudo gem install charlock_holmes --version '0.6.9.4'
 
 # For MySQL (note, the option says "without ... postgres")
-sudo -u git -H bundle install --deployment --without development test postgres aws $pumaorunicorn
+sudo -u git -H bundle install --deployment --without development test postgres aws
 
 
 #  ================================================
