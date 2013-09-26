@@ -9,7 +9,7 @@ http://smyl.es/igitlab-configurable-gitlab-multi-version-bashshell-installer-scr
 
 Name says it all, use this script to install GitLab on any debian flavored server, check the script for configuration options.
 
-Tested working on 5-4-stable, but should work on other versions and master as well.
+Tested working on 6-1-stable, but should work on other versions and master as well.  Change "master" below in wget to 6-1-stable if you want to use that branch.
 
 ## Installation
 ``` bash
@@ -25,21 +25,21 @@ chmod +x igitlab
 ## Configuration Options
 
 ### GitLab Release
-Set this to whatever branch you want to use for the GitLab installation.  Current tested working version is 5-4-stable, change to master for latest.
+Set this to whatever branch you want to use for the GitLab installation.  Current tested working version is 6-1-stable, change to master for latest.
 ``` bash
-gitlab_release=5-4-stable
+gitlab_release=6-1-stable
 ```
 
 ### Unicorn or Puma
 Version 5.1 through 5.9 uses Puma, whereas 6.0 will start using Unicorn again.  Set this to 1 if you are installing a version that requires Unicorn instead of Puma.
 ``` bash
-useunicorn=0
+useunicorn=1
 ```
 
 ### Ruby Download URL
 Set this to the URL to download Ruby source
 ``` bash
-rubydlurl="http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz"
+rubydlurl="ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz"
 ```
 
 ### MySQL Root Password
