@@ -13,13 +13,13 @@ Tested working on 6-1-stable, but should work on other versions and master as we
 
 ## Installation
 ``` bash
-wget https://raw.github.com/tripflex/igitlab/master/igitlab
+wget https://raw.github.com/tripflex/igitlab/recipe-test/igitlab
 chmod +x igitlab
 ```
 
 ## Usage
 ``` bash
-./igitlab mygitdomain.com
+./igitlab [--url <yourgitlabdomain.com>] [--db <mysql|postgres>] [--gitlab <version>] [--shell <version>]
 ```
 
 ## Configuration Options
