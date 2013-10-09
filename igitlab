@@ -337,10 +337,10 @@ sudo -u git cp config/database.yml.mysql config/database.yml
 
 # Insert database password into config
 passwdph="secure password"
-sed -i "s/${passwdph}/${gitlabpass}/g" config/database.yml
+sudo -u git -H sed -i "s/${passwdph}/${gitlabpass}/g" config/database.yml
 
 # Replace MySQL user root with gitlab
-sed -i 's/root/gitlab/g' config/database.yml
+sudo -u git -H sed -i 's/root/gitlab/g' config/database.yml
 
 # Make config/database.yml readable to git only
 sudo -u git -H chmod o-rwx config/database.yml
