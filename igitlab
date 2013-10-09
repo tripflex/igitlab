@@ -497,10 +497,10 @@ if [ $DB_TYPE = "mysql" ]; then
 
 	info "Insert database password into config"
 	passwdph="secure password"
-	sed -i "s/${passwdph}/${GITLAB_DB_PASS}/g" config/database.yml
+	run_as_git_user sed -i "s/${passwdph}/${GITLAB_DB_PASS}/g" config/database.yml
 
 	info "Replace MySQL user root with gitlab"
-	sed -i 's/root/gitlab/g' config/database.yml
+	run_as_git_user sed -i 's/root/gitlab/g' config/database.yml
 
 	info "Make config/database.yml readable to git only"
 	run_as_git_user chmod o-rwx config/database.yml
