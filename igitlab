@@ -16,8 +16,8 @@ EOT
 #                     Ubuntu/Debian Installer
 # ------------------------------------------------------------------------------
 # @author Myles McNamara
-# @date 9.26.2013
-# @version 1.1
+# @date 10.23.2013
+# @version 1.1.1
 # @source https://github.com/tripflex/igitlab
 # ------------------------------------------------------------------------------
 # @usage ./igetlab domain.com
@@ -42,7 +42,7 @@ EOT
 #  - GitHub branch to use.  Use master for latest release -
 #  --------------------------------------------------------
 #  For versions <=5.0 or >=6.0 the Unicorn Gem is used, 5.1-5.9 uses Puma, if you used master Unicorn is required.
-	gitlab_release=6-1-stable
+	gitlab_release=6-2-stable
 #  -------------------------------------------------------
 #  - Unicorn or Puma, Puma default, set to 1 for Unicorn -
 #  -------------------------------------------------------
