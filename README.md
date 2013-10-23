@@ -25,9 +25,9 @@ chmod +x igitlab
 ## Configuration Options
 
 ### GitLab Release
-Set this to whatever branch you want to use for the GitLab installation.  Current tested working version is 6-1-stable, change to master for latest.
+Set this to whatever branch you want to use for the GitLab installation.  Current tested working version is 6-2-stable, change to master for latest.
 ``` bash
-gitlab_release=6-1-stable
+gitlab_release=6-2-stable
 ```
 
 ### Unicorn or Puma
