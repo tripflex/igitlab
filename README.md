@@ -9,7 +9,17 @@ http://smyl.es/igitlab-configurable-gitlab-multi-version-bashshell-installer-scr
 
 Name says it all, use this script to install GitLab on any debian flavored server, check the script for configuration options.
 
-Tested working on 6-1-stable, but should work on other versions and master as well.  Change "master" below in wget to 6-1-stable if you want to use that branch.
+Tested working on 6-2-stable, but should work on other versions and master as well.  Change "master" below in wget to 6-2-stable if you want to use that branch.
+
+6-1-stable, if even available anymore should NOT be installed, has known security vulnerability.
+
+6-2-stable branch from GitLab main repo has been updated to 6.2.3 to patch security vulnerabilities, installing 6-2-stable will install 6.2.3 or later minor revisions.
+
+GitLab Remote code execution vulnerability in the code search feature (Affected: 5.2 - 5.4, 6.0 - 6.2)(Fixed Versions: 5.4.1, 6.2.3)
+http://cxsecurity.com/issue/WLB-20131100266
+
+GitLab Remote code execution vulnerability in the SSH key upload (Affected: 5.0 - 5.4, 6.0 - 6.2) (Fixed Versions: 5.4.1, 6.2.3)
+http://cxsecurity.com/issue/WLB-2013110025
 
 ## Installation
 ``` bash
