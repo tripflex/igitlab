@@ -234,7 +234,7 @@ sudo make install --silent
 
 # Bundler Gem (-q for quiet)
 echo -e "\n[iGitLab] Installing Bundler Gem..."
-#sudo gem install bundler --no-ri --no-rdoc -q
+sudo gem install bundler --no-ri --no-rdoc -q
 
 #  ================
 #  = System Users =
