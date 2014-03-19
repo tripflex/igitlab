@@ -42,7 +42,7 @@ EOT
 #  - GitHub branch to use.  Use master for latest release -
 #  --------------------------------------------------------
 #  For versions <=5.0 or >=6.0 the Unicorn Gem is used, 5.1-5.9 uses Puma, if you used master Unicorn is required.
-	gitlab_release=6-2-stable
+	gitlab_release=6-5-stable
 #  -------------------------------------------------------
 #  - Unicorn or Puma, Puma default, set to 1 for Unicorn -
 #  -------------------------------------------------------
@@ -50,12 +50,12 @@ EOT
 #  --------------------------------------
 #  - Version of GitLab Shell to install -
 #  --------------------------------------
-	gitlab-shell_release=v1.7.1
+	gitlab_shell_release=v1.8.0
 #  -------------------------------------
 #  - Download URL for Ruby tar.gz file -
 #  -------------------------------------
 #  We will use Ruby 2 for >6
-	rubydlurl="ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz"
+	rubydlurl="http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.0.tar.bz2"
 #	rubydlurl="http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz"
 #  --------------------------------------------------
 #  - MySQL Root Password, will prompt if left blank -
@@ -143,7 +143,7 @@ givemeayes "Would you like to continue with the install? (y/n)"
 #  ====================
 #  = Install Packages =
 #  ====================
-#  
+#
 msgnl "[iGitLab] Updating package information..."
 sudo apt-get update $aptget_arguments
 msgnl "Installing required packages, please wait this could take a minute..."
@@ -212,7 +212,7 @@ sudo ln -s /usr/bin/python /usr/bin/python2
 #  ===================
 #  = Postfix Install =
 #  ===================
-#  
+#
 sudo DEBIAN_FRONTEND='noninteractive' apt-get install $aptget_arguments postfix-policyd-spf-python postfix # Install postfix without prompting.
 
 #  =====================
@@ -223,7 +223,7 @@ sudo DEBIAN_FRONTEND='noninteractive' apt-get install $aptget_arguments postfix-
 echo -e "\n[iGitLab] Removing Ruby1.8 if installed..."
 sudo apt-get remove $aptget_arguments ruby1.8
 echo -e "\n[iGitLab] Downloading $rubydlurl..."
-curl --progress-bar $rubydlurl | tar xz
+curl --progress-bar $rubydlurl | tar xj
 cd ruby-*
 echo -e "\n[iGitLab] Configuring Ruby..."
 ./configure --silent
@@ -239,7 +239,7 @@ sudo gem install bundler --no-ri --no-rdoc -q
 #  ================
 #  = System Users =
 #  ================
-#  
+#
 # Create system git user for GitLab
 echo -e "\n[iGitLab] Creating system git user for GitLab..."
 sudo adduser --disabled-login --gecos 'GitLab' git
@@ -247,7 +247,7 @@ sudo adduser --disabled-login --gecos 'GitLab' git
 #  =============================
 #  = GitLab Shell Installation =
 #  =============================
-#  
+#
 # Go to home directory
 cd /home/git
 
@@ -255,7 +255,7 @@ cd /home/git
 sudo -u git -H git clone https://github.com/gitlabhq/gitlab-shell.git
 cd gitlab-shell
 # switch to right version
-sudo -u git -H git checkout $gitlab-shell_release
+sudo -u git -H git checkout $gitlab_shell_release
 # copy example config to config.yml
 sudo -u git -H cp config.yml.example config.yml
 
@@ -268,7 +268,7 @@ sudo -u git -H ./bin/install
 #  =======================
 #  = GitLab Installation =
 #  =======================
-#  
+#
 cd /home/git
 # Clone GitLab repository
 sudo -u git -H git clone https://github.com/gitlabhq/gitlabhq.git gitlab
@@ -282,7 +282,7 @@ sudo -u git -H git checkout $gitlab_release
 #  ========================
 #  = GitLab Configuration =
 #  ========================
-#  
+#
 cd /home/git/gitlab
 
 # Copy the example GitLab config
@@ -348,7 +348,7 @@ sudo -u git -H chmod o-rwx config/database.yml
 #  =======================
 #  = GitLab Gems Install =
 #  =======================
-#  
+#
 cd /home/git/gitlab
 
 sudo gem install charlock_holmes --version '0.6.9.4'
@@ -365,7 +365,7 @@ sudo -u git -H bundle exec rake gitlab:setup RAILS_ENV=production
 #  ======================
 #  = GitLab Init Script =
 #  ======================
-#  
+#
 sudo cp lib/support/init.d/gitlab /etc/init.d/gitlab
 sudo chmod +x /etc/init.d/gitlab
 
@@ -375,7 +375,7 @@ sudo update-rc.d gitlab defaults 21
 #  ===================
 #  = Apache Handling =
 #  ===================
-#  
+#
 if [ -f /etc/init.d/apache2 ]; then
   echo -e "\n[iGitLab] Apache init found, attempting to stop"
   sudo /etc/init.d/apache2 stop
