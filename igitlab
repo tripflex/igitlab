@@ -16,8 +16,8 @@ EOT
 #                     Ubuntu/Debian Installer
 # ------------------------------------------------------------------------------
 # @author Myles McNamara
-# @date 10.23.2013
-# @version 1.1.1
+# @date 6.18.2014
+# @version 1.1.2
 # @source https://github.com/tripflex/igitlab
 # ------------------------------------------------------------------------------
 # @usage ./igetlab domain.com
@@ -38,29 +38,40 @@ EOT
 #  =============================================================================
 #  =                   Required Script Configuration Values                    =
 #  =============================================================================
+#  -------------------------
+#  - Break on script error -
+#  -------------------------
+#  Comment out the code below to prevent script from existing on error
+set -e
+#
 #  --------------------------------------------------------
 #  - GitHub branch to use.  Use master for latest release -
 #  --------------------------------------------------------
 #  For versions <=5.0 or >=6.0 the Unicorn Gem is used, 5.1-5.9 uses Puma, if you used master Unicorn is required.
-	gitlab_release=6-5-stable
+gitlab_release=6-5-stable
+#
 #  -------------------------------------------------------
 #  - Unicorn or Puma, Puma default, set to 1 for Unicorn -
 #  -------------------------------------------------------
-	useunicorn=1
+useunicorn=1
+#
 #  --------------------------------------
 #  - Version of GitLab Shell to install -
 #  --------------------------------------
-	gitlab_shell_release=v1.8.0
+gitlab_shell_release=v1.8.0
+#
 #  -------------------------------------
 #  - Download URL for Ruby tar.gz file -
 #  -------------------------------------
 #  We will use Ruby 2 for >6
-	rubydlurl="http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.0.tar.bz2"
+rubydlurl="http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.0.tar.bz2"
 #	rubydlurl="http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz"
+#
 #  --------------------------------------------------
 #  - MySQL Root Password, will prompt if left blank -
 #  --------------------------------------------------
-	mysqlpasswd=""
+mysqlpasswd=""
+#
 #  ------------------------------
 #  - Optional apt-get arguments -
 #  ------------------------------
@@ -69,9 +80,9 @@ EOT
 #  -q = quiet
 #  -qq = even more quiet (also implies -y, do not use with -s)
 #  ------------------------------
-	aptget_arguments="-qq"
-	APTLOG=apt.log
-	APTERRLOG=apterror.log
+aptget_arguments="-qq"
+APTLOG=apt.log
+APTERRLOG=apterror.log
 
 ###########################
 # That's far enough buddy #
