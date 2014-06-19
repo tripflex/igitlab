@@ -11,16 +11,6 @@ Name says it all, use this script to install GitLab on any debian flavored serve
 
 Tested working on 6-2-stable, but should work on other versions and master as well.  Change "master" below in wget to 6-2-stable if you want to use that branch.
 
-6-1-stable, if even available anymore should NOT be installed, has known security vulnerability.
-
-6-2-stable branch from GitLab main repo has been updated to 6.2.3 to patch security vulnerabilities, installing 6-2-stable will install 6.2.3 or later minor revisions.
-
-GitLab Remote code execution vulnerability in the code search feature (Affected: 5.2 - 5.4, 6.0 - 6.2)(Fixed Versions: 5.4.1, 6.2.3)
-http://cxsecurity.com/issue/WLB-20131100266
-
-GitLab Remote code execution vulnerability in the SSH key upload (Affected: 5.0 - 5.4, 6.0 - 6.2) (Fixed Versions: 5.4.1, 6.2.3)
-http://cxsecurity.com/issue/WLB-2013110025
-
 ## Installation
 ``` bash
 wget https://raw.github.com/tripflex/igitlab/master/igitlab
@@ -37,7 +27,7 @@ chmod +x igitlab
 ### GitLab Release
 Set this to whatever branch you want to use for the GitLab installation.  Current tested working version is 6-2-stable, change to master for latest.
 ``` bash
-gitlab_release=6-2-stable
+gitlab_release=6-9-stable
 ```
 
 ### Unicorn or Puma
