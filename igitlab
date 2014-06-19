@@ -324,7 +324,7 @@ sudo chmod -R u+rwX  tmp/sockets/
 sudo -u git -H mkdir public/uploads
 sudo chmod -R u+rwX  public/uploads
 
-# Copy the example Unicorn config (Version < 5.1 use Unicorn, versions > 5.1 use Puma)
+# Copy the example Unicorn config (Version 5.1-5.4 use Puma, prior to 5.1 and 6.0+ uses Unicorn)
 # sudo -u git -H cp config/unicorn.rb.example config/unicorn.rb
 
 # Copy the example of Puma config
