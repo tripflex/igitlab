@@ -337,6 +337,9 @@ else
 	pumaorunicorn="unicorn"
 fi
 
+# Copy the example Rack attack config
+sudo -u git -H cp config/initializers/rack_attack.rb.example config/initializers/rack_attack.rb
+
 # Configure Git global settings for git user
 sudo -u git -H git config --global user.name "GitLab"
 sudo -u git -H git config --global user.email "gitlab@$domain_var"
