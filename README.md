@@ -1,9 +1,14 @@
-	iii   GGGG  iii tt    LL              bb      
-	     GG  GG     tt    LL        aa aa bb      
-	iii GG      iii tttt  LL       aa aaa bbbbbb  
-	iii GG   GG iii tt    LL      aa  aaa bb   bb 
-	iii  GGGGGG iii  tttt LLLLLLL  aaa aa bbbbbb  
-	                                              
+```bash
+	 88   ,ad8888ba,  88         88                     88
+	 ""  d8"'    `"8b ""   ,d    88                     88
+	    d8'                88    88                     88
+	 88 88            88 MM88MMM 88          ,adPPYYba, 88,dPPYba,
+	 88 88      88888 88   88    88          ""     `Y8 88P'    "8a
+	 88 Y8,        88 88   88    88          ,adPPPPP88 88       d8
+	 88  Y8a.    .a88 88   88,   88          88,    ,88 88b,   ,a8"
+	 88     Y88888P   88   "Y888 88888888888 `"8bbdP"Y8 8Y"Ybbd8"'
+	 
+```
 # iGitLab - GitLab Ubuntu/Debian Installer Bash/Shell Script
 http://smyl.es/igitlab-configurable-gitlab-multi-version-bashshell-installer-script-for-debian-ubuntu-linux-mint-etc/
 
