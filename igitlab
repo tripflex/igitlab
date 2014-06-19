@@ -390,6 +390,12 @@ sudo chmod +x /etc/init.d/gitlab
 sudo update-rc.d gitlab defaults 21
 
 #  ===================
+#  = Setup logrotate =
+#  ===================
+#
+sudo cp lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
+
+#  ===================
 #  = Apache Handling =
 #  ===================
 #
