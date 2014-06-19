@@ -64,7 +64,7 @@ gitlab_shell_release=v1.8.0
 #  - Download URL for Ruby tar.gz file -
 #  -------------------------------------
 #  We will use Ruby 2 for >6
-rubydlurl="http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.0.tar.bz2"
+rubydlurl="ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p481.tar.gz"
 #	rubydlurl="http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz"
 #
 #  --------------------------------------------------
