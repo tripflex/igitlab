@@ -158,7 +158,7 @@ givemeayes "Would you like to continue with the install? (y/n)"
 msgnl "[iGitLab] Updating package information..."
 sudo apt-get update $aptget_arguments
 msgnl "Installing required packages, please wait this could take a minute..."
-sudo apt-get install $aptget_arguments build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl wget git-core openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev logrotate 1>>$APTLOG 2>>$APTERRLOG || (echo "apt-get install failed, check APTLOG and APTERRLOG" ; exit)
+sudo apt-get install $aptget_arguments build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl wget git-core openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev logrotate cmake 1>>$APTLOG 2>>$APTERRLOG || (echo "apt-get install failed, check APTLOG and APTERRLOG" ; exit)
 
 #  ======================
 #  = MySQL Installation =
@@ -218,7 +218,9 @@ sudo apt-get install $aptget_arguments python2.7 python-docutils
 python2 --version
 
 # If you get a "command not found" error create a link to the python binary
-sudo ln -s /usr/bin/python /usr/bin/python2
+if [ ! -f /usr/bin/python ];then
+	sudo ln -s /usr/bin/python /usr/bin/python2
+fi
 
 #  ===================
 #  = Postfix Install =
@@ -234,7 +236,7 @@ sudo DEBIAN_FRONTEND='noninteractive' apt-get install $aptget_arguments postfix-
 echo -e "\n[iGitLab] Removing Ruby1.8 if installed..."
 sudo apt-get remove $aptget_arguments ruby1.8
 echo -e "\n[iGitLab] Downloading $rubydlurl..."
-curl --progress-bar $rubydlurl | tar xj
+curl --progress-bar $rubydlurl | tar xz
 cd ruby-*
 echo -e "\n[iGitLab] Configuring Ruby..."
 ./configure --silent
@@ -294,13 +296,19 @@ sudo -u git -H mkdir /home/git/gitlab-satellites
 sudo chmod u+rwx,g=rx,o-rwx /home/git/gitlab-satellites
 
 # Create directories for sockets/pids and make sure GitLab can write to them
-sudo -u git -H mkdir tmp/pids/
-sudo -u git -H mkdir tmp/sockets/
+if [ ! -d tmp/pids/ ];then
+	sudo -u git -H mkdir tmp/pids/
+fi
+if [ ! -d tmp/sockets/ ];then
+	sudo -u git -H mkdir tmp/sockets/
+fi
 sudo chmod -R u+rwX  tmp/pids/
 sudo chmod -R u+rwX  tmp/sockets/
 
 # Create public/uploads directory otherwise backup will fail
-sudo -u git -H mkdir public/uploads
+if [ ! -d tmp/sockets/ ];then
+	sudo -u git -H mkdir public/uploads
+fi
 sudo chmod -R u+rwX  public/uploads
 
 # Copy the example Unicorn config (Version 5.1-5.4 use Puma, prior to 5.1 and 6.0+ uses Unicorn)
@@ -333,7 +341,7 @@ sudo -u git cp config/database.yml.mysql config/database.yml
 
 # Insert database password into config
 passwdph="secure password"
-sudo -u git -H sed -i "s/${passwdph}/${gitlabpass}/g" config/database.yml
+sudo -u git -H sed -i "s|${passwdph}|${gitlabpass}|g" config/database.yml
 
 # Replace MySQL user root with gitlab
 sudo -u git -H sed -i 's/root/gitlab/g' config/database.yml
